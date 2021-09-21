@@ -5,6 +5,8 @@ this is a super basic install as proof of concept.
 
 Some files are .sh , if you want to work in windows , the commands are quite easy to translate into .bat
 
+# :RED: Allocate at least 8 GB of ram and 4 cpus for docker-desktop 
+
 # It needs a working SMP copy in order to work , i tested it on Docker-desktop + Kuberenets , but should work the same on minikube or openshift also
 
 # Pre-Requisites
@@ -72,8 +74,7 @@ now run the install Command
 
 grab a :hamburger: :fries: :tumbler_glass: :tumbler_glass: :tumbler_glass:
 
-after its done just 
-
+After its done, do 
 
 
 
