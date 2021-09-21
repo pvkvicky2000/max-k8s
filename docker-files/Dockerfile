@@ -1,8 +1,5 @@
 FROM websphere-liberty:21.0.0.5-full-java8-ibmjava
 COPY "./maximo-ui-server/" "/config/"
-#ADD "/Users/vijay/Docker-WAS-maximo/Anywhere/SMP/maximo/deployment/was-liberty-default/deployment/maximo-ui/maximo-ui-server/server.xml" "/config/server.xml"
-#ADD "/Users/vijay/Docker-WAS-maximo/Anywhere/SMP/maximo/deployment/was-liberty-default/deployment/maximo-ui/maximo-ui-server/jvm.options" "/config/jvm.options"
-#RUN ["sudo","chmod", "-R","777", "/opt/ibm/wlp/usr/servers"]
 CMD ["/opt/ibm/wlp/bin/server","run", "defaultServer"]
 EXPOSE 7777/tcp
 EXPOSE 9080/tcp

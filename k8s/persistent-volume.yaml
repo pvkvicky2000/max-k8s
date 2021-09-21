@@ -11,4 +11,4 @@ spec:
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/Users/vijay/Docker-WAS-maximo/Anywhere/persistent-volume"
+    path: "./persistent-volume"

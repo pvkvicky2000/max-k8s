@@ -4,6 +4,7 @@ My Maximo on K8s , Working with Sql Server and Maximo 7.6.1.2
 this is a super basic install as proof of concept.
 
 Some files are .sh , if you want to work in windows , the commands are quite easy to translate into .bat
+I recommend powershell for windows  
 
 # :bangbang: Allocate at least 8 GB of ram and 4 cpus for docker-desktop :bangbang:
 
@@ -72,6 +73,9 @@ you can also track this using docker desktp and just clicking on the pod , but t
   
   
 The SQL server will be accessible on port 1433
+username : sa 
+password : maximo_2012 ( this is in the sql-server-deployment.yaml file FYI)
+
 Now follow the regular steps for craeting a new sql server database ( i named it maxdb76 ) and maximo user ( i named my user "maximo")  
 make sure that you allocate at least 400 Mb and auto expand when creating the SQL database
 make sure that for the user maximo , the default database is maxdb76 
