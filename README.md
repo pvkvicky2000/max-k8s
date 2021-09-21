@@ -12,6 +12,12 @@ I recommend powershell for windows
 
 # Pre-Requisites
 
+Install Docker-desktop with k8s
+
+https://andrewlock.net/running-kubernetes-and-the-dashboard-with-docker-desktop/
+
+
+
 Here is the directory structure of the project that is expected
 
 /<br/>
