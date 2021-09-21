@@ -31,7 +31,7 @@ create a folder called persistent-volume ( this is where your sql server files w
 --k8s<br/>
 --SMP<br/>
 --sql-server<br/>
-# --persistent-volume<br/>
+--persistent-volume<br/>
 
 # Create Storage Provisioner
 
