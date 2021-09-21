@@ -1,0 +1,14 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: maximo-persistent-volume
+  labels:
+    type: local
+spec:
+  storageClassName: pv-local 
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/Users/vijay/Docker-WAS-maximo/Anywhere/persistent-volume"

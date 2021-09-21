@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maximoui
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: maximoui
+  template:
+    metadata:
+      labels:
+        app: maximoui
+    spec:
+      terminationGracePeriodSeconds: 30
+      hostname: "maximoui"
+      securityContext:
+        fsGroup: 10001
+      containers:
+      - name: maximoui
+        image: maximo_k8s
+        imagePullPolicy: Never
+        resources:
+          requests:
+            memory: "3Gi"
+            cpu: "1024m"
+          limits:
+            memory: "6Gi"
+            cpu: "3096m"
+        ports:
+        - containerPort: 9080

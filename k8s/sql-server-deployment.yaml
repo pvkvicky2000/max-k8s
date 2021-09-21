@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: max761-local
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: max761-local
+  template:
+    metadata:
+      labels:
+        app: max761-local
+    spec:
+      terminationGracePeriodSeconds: 30
+      hostname: max761-local
+      securityContext:
+        fsGroup: 10001
+      containers:
+      - name: max761-local
+        image: mssql-2017-fts:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 1433
+        env:
+        - name: "ACCEPT_EULA"
+          value: "Y"
+        - name: "SA_PASSWORD"
+          value : "maximo_2012"
+        - name: "MSSQL_AGENT_ENABLED"
+          value: "true" 
+        volumeMounts:
+        - mountPath: /var/opt/mssql
+          name: maximo-persistent-volume
+      volumes:
+        - name: maximo-persistent-volume
+          persistentVolumeClaim:
+            claimName: sql-server-claim

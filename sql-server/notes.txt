@@ -1,0 +1,10 @@
+sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=maximo_2012" \
+   -p 1433:1433 --name MAX761.local -h MAX761.local \
+   -v /Users/vijay/Docker-WAS-maximo/Anywhere/sql-server/data:/var/opt/mssql \
+   -d mcr.microsoft.com/mssql/server:2019-latest
+
+
+   sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=maximo_2012" -e "MSSQL_AGENT_ENABLED=true" \
+   -p 1433:1433 --name MAX761.local -h MAX761.local \
+   -v /Users/vijay/Docker-WAS-maximo/Anywhere/sql-server/data:/var/opt/mssql \
+   -d mssql-2017-fts:latest
