@@ -14,24 +14,24 @@ I recommend powershell for windows
 
 Here is the directory structure of the project that is expected
 
-/
-|
-|
---docker-files
---k8s
---SMP
---sql-server
+/<br/>
+|<br/>
+|<br/>
+--docker-files<br/>
+--k8s<br/>
+--SMP<br/>
+--sql-server<br/>
 
 # This below step is for local install only , for Azure, AWS, GCP or openshift you need to specify another storage provisioner
 create a folder called persistent-volume ( this is where your sql server files will reside) in the same folder structure , so it looks like this
-/
-|
-|
---docker-files
---k8s
---SMP
---sql-server
-# --persistent-volume
+/<br/>
+|<br/>
+|<br/>
+--docker-files<br/>
+--k8s<br/>
+--SMP<br/>
+--sql-server<br/>
+# --persistent-volume<br/>
 
 # Create Storage Provisioner
 
