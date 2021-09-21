@@ -112,15 +112,15 @@ After its done, query the data ( :grey_question: select * from maxobjectcfg  :gr
 <br/>
 # Now for the Maximo part
 <br/><br/>
-Change the SMP/maximo/applications/maximo/properties/maximo.properties jdbc url to below
+ <b>Change the SMP/maximo/applications/maximo/properties/maximo.properties jdbc url to below</b>
 <br/>
-This is because k8s and containers dont really understand localhost , the localhost part is really there to expose the service outside and get our DB tools working with it<br/>
-so we need to refer with the k8s service name when one container connects to another container
+<i>This is because k8s and containers dont really understand localhost , 
+<br/>the localhost part is really there to expose the service outside and get our DB tools working with it<br/>
+ so we need to refer with the k8s service name when one container connects to another container</i>
 <br/>
 Change the JDBC URL to
-<br/>
+<br/><br/>
 jdbc:sqlserver://sql-server-service\\max761-local:1433
-
 <br/>
 <br/>
 
