@@ -45,6 +45,10 @@ we need to create pv ( Persistent Volume ) , pvc (Persistent Volume Claim) , SC 
 
 I'm allocating 10 Gb for persistent Volume and 5 Gb fgor Sql Server , if it outgrows that we can expnad it later
 
+<b> For local Persistent volume , in some cases on windows , we need to pass the Absolute path of your Folder instead of relative path<br/>
+Goto ./k8s/persistent-volume.yaml file and change the path name to an absolute path of the folder </b>
+
+<br/>
 <br/>
 ./kubectl apply -f ./k8s/persistent-volume.yaml<br/>
 ./kubectl apply -f ./k8s/persistent-volume-claim-sqlserver.yaml<br/>
@@ -86,7 +90,7 @@ Now follow the regular steps for craeting a new sql server database ( i named it
 make sure that you allocate at least 400 Mb and auto expand when creating the SQL database
 make sure that for the user maximo , the default database is maxdb76 
 
-i'm not going to ouline this step as its fairly easy to do this ( its sql server , so its fairly easy , also its outlined here)
+i'm not going to ouline this step as its fairly easy to do this ( its sql server , also its outlined here)
 <br/>
 https://www.ibm.com/docs/en/SSLKT6_7.6.0/com.ibm.mam.doc/pdf_was_sql_wad_install.pdf#%5B%7B%22num%22%3A421%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C166%2C443%2Cnull%5D
 <br/>
@@ -117,7 +121,7 @@ After its done, query the data ( :grey_question: select * from maxobjectcfg  :gr
 <i>This is because k8s and containers dont really understand localhost , 
 <br/>the localhost part is really there to expose the service outside and get our DB tools working with it<br/>
  so we need to refer with the k8s service name when one container connects to another container</i>
-<br/>
+<br/><br/>
 Change the JDBC URL to
 <br/><br/>
 jdbc:sqlserver://sql-server-service\\max761-local:1433
