@@ -53,9 +53,9 @@ Goto ./k8s/persistent-volume.yaml file and change the path name to an absolute p
 ./kubectl apply -f ./k8s/persistent-volume.yaml<br/>
 ./kubectl apply -f ./k8s/persistent-volume-claim-sqlserver.yaml<br/>
 ./kubectl apply -f ./k8s/storageclass.yaml<br/>
-
+<br/><br/>
 To see evertything is working fine and allocated 
-<br/>
+<br/><br/>
 ./kubectl describe -f ./k8s/persistent-volume.yaml<br/>
 ./kubectl describe -f ./k8s/persistent-volume-claim-sqlserver.yaml<br/>
 ./kubectl describe -f ./k8s/storageclass.yaml<br/>
@@ -64,20 +64,24 @@ Messed up ? need to re-create?<br/><br/>
 ./kubectl delete -f ./k8s/persistent-volume.yaml<br/>
 ./kubectl delete -f ./k8s/persistent-volume-claim-sqlserver.yaml<br/>
 ./kubectl delete -f ./k8s/storageclass.yaml<br/>
-
+<br/>
 # Install Sql Server and perform maximo db install
 <br/>
 ./k8s/createSqlServerImage.sh<br/>
 ./k8s/startSqlServer.sh<br/>
 
-you can check the deployment status using 
+<i>you can check the deployment status using Kubernetes dashboard that you created when you setup the docker desktop<br/><br/>
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/ <br/><br/>
+</i>
 <br/>
 ./kubectl get deployment<br/>
 ./kubectl get pods<br/>
 <br/>
 to gather logs
 <br/>
-./kubectl get log <the pod name> ( its random every time , so you need to check based on the output of get pods)
+./kubectl get log <the pod name> ( its random every time , so you need to check based on the output of get pods)<br/>
+ <br/>
+ <i> You can also , asuming you setuo the </i>
 
 you can also track this using docker desktp and just clicking on the pod , but try to use cmds just to practice
  <br/>
