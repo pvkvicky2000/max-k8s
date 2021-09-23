@@ -54,13 +54,13 @@ Goto ./k8s/persistent-volume.yaml file and change the path name to an absolute p
 ./kubectl apply -f ./k8s/persistent-volume-claim-sqlserver.yaml<br/>
 ./kubectl apply -f ./k8s/storageclass.yaml<br/>
 <br/><br/>
-To see evertything is working fine and allocated 
+<b>To see evertything is working fine and allocated </b>
 <br/><br/>
 ./kubectl describe -f ./k8s/persistent-volume.yaml<br/>
 ./kubectl describe -f ./k8s/persistent-volume-claim-sqlserver.yaml<br/>
-./kubectl describe -f ./k8s/storageclass.yaml<br/>
+./kubectl describe -f ./k8s/storageclass.yaml<br/><br/><br/>
 
-Messed up ? need to re-create?<br/><br/>
+<b>Messed up ? need to re-create?</b><br/><br/>
 ./kubectl delete -f ./k8s/persistent-volume.yaml<br/>
 ./kubectl delete -f ./k8s/persistent-volume-claim-sqlserver.yaml<br/>
 ./kubectl delete -f ./k8s/storageclass.yaml<br/>
