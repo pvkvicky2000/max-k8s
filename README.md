@@ -181,8 +181,106 @@ The implemenation to change is<br/>
 this needs to be changed for every cloud implementation ( Azure disk for Azure , OCS for Openshift , S3 for AWS , NFS for data center etc.)\
 all the steps are pretty much the same 
   <br/><br/>
-# DB2 ??
-Coming soon ... 🙂
+# DB2 ( maybe Works maybe doesnt)
+ 
+**Windows users at this point are just plain of out luck , please use linux , or at least use WSL 2 , it isnt worth the hassle to try to run k8s on windows at this point** 
+if you still insist on windows fine then install choclatey from https://chocolatey.org/
+
+and run
+```fallback
+choco install kubernetes-helm
+```
+
+
+**Warning /minor rant:** DB2 and increasingly IBM products especially on k8s and OpenShift are what I would describe as malfunctioning magnets, cause their stuff just randomly starts malfunctioning, without rhyme or reason, and it's not the same issue every time, I never faced this with either oracle or with SQL server, I mean your experience might be different, but this was way harder than it was supposed to be because, well, this is the opposite of apple , it just ~~works~~ fails.
+
+
+ok first thing create an ibm cloud account 
+https://cloud.ibm.com
+
+now click on manage (its on the top) -->Access (IAM) --> Click on API keys (its on the left) -->Create a new IBM API key 
+
+**Keep this key with you and never share it with anyone**  , this key could be used to spin up entire clusters on IBM cloud and if hackers got it they could use it for crypto mining until your bank accounts run dry ( also dont put in your credit card at all)
+
+All right now login to your K8s cluster on shell ( some of these commands are from an IBM tutorial) , ***the username has to be iamapikey , dont change it*** 
+```plaintext
+echo <apikey> | docker login -u iamapikey --password-stdin icr.io
+```
+```plaintext
+docker pull icr.io/obs/hdm/db2wh_ee:v11.5.6.0-db2wh-linux
+```
+
+This will install Helm , which you can think of as a super awesome deployment tool that packages all the deployments and services and routes ( basically any entire application stack into a neat little package ) that can be committed to a repo and tracked , basically this is your Infrastructure as a code 
+```
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+```
+Download the helm charts from IBM's github repo (download this as is )
+https://github.com/IBM/charts/tree/master/stable/ibm-db2warehouse
+
+Db2 enterprise requires a license and im not sure everyone can have it just now, so we're using db2 warehouse which im hoping is free for evaluation  ( unlike Sql server and oracle which is FREE for development , so what gives IBM??)
+
+Now create a namespace for db2 and all the service accounts 
+
+```bash
+kubectl create namespace db2
+kubectl create serviceaccount db2u -n db2
+```
+ 
+ Now setup the pre requisites
+ ```bash
+ # create a role
+kubectl create -f ibm_cloud_pak/pak_extensions/pre-install/namespaceAdministration/ibm-db2-role.yaml -n db2
+
+#create a role binding 
+kubectl create -f ibm_cloud_pak/pak_extensions/pre-install/namespaceAdministration/ibm-db2-rb.yaml -n db2
+
+#Create a secret ( the username is always iamapikey)
+kubectl create secret -n db2 docker-registry ibm-registry \
+   --docker-server=icr.io \
+   --docker-username=iamapikey \
+   --docker-password=<api_key>
+  
+kubectl patch serviceaccount db2u -n db2 -p '{"imagePullSecrets": [{"name": "ibm-registry"}]}'
+```
+
+
+Ok now we push ( and hope and pray that the cluster doesn't screw up) 
+**Attention windows users : at this point i cannot help , you're on your own   --> viel Glück <--**
+
+Create the LDAP bluadmin secret and Db2 instance secret
+```
+export RELEASE_NAME="max-db2"
+export PASSWORD="maximo_2012"
+kubectl create secret generic ${RELEASE_NAME}-db2u-ldap-bluadmin --from-literal=password="${PASSWORD}"
+kubectl create secret generic ${RELEASE_NAME}-db2u-instance --from-literal=password="${PASSWORD}"
+```
+open the `./ibm_cloud_pak/pak_extensions/common/helm_options`
+file and set it like so
+```
+storage.useDynamicProvisioning="false"
+storage.enableVolumeClaimTemplates="true"
+storage.storageLocation.dataStorage.enablePodLevelClaim="true"
+storage.storageLocation.dataStorage.enabled="true"
+storage.storageLocation.dataStorage.volumeType="pvc"
+storage.storageLocation.dataStorage.pvc.claim.storageClassName="maximo-persistent-volume"
+storage.storageLocation.dataStorage.pvc.claim.size="10Gi"
+storage.storageLocation.metaStorage.enabled="true"
+storage.storageLocation.metaStorage.volumeType="pvc"
+storage.storageLocation.metaStorage.pvc.claim.storageClassName="maximo-persistent-volume"
+storage.storageLocation.metaStorage.pvc.claim.size="10Gi"
+```
+![](https://cdn.mos.cms.futurecdn.net/4SdzPVn25sxXXTftP59HMW.jpg)
+
+./ibm_cloud_pak/pak_extensions/commondb2u-install \
+  --db-type db2wh \
+  --namespace db2u-project \
+  --release-name db2u-release-2 \ 
+  --helm-opt-file ./helm_options
+  
+![enter image description here](https://jaysblog.org/wp-content/uploads/2018/09/Fervent-Prayers-29t3cks-1vj911t-1.jpg)
+
 
 
 
