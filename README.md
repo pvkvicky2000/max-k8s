@@ -271,14 +271,18 @@ storage.storageLocation.metaStorage.volumeType="pvc"
 storage.storageLocation.metaStorage.pvc.claim.storageClassName="maximo-persistent-volume"
 storage.storageLocation.metaStorage.pvc.claim.size="10Gi"
 ```
+                                                                                                    
+Deeeeeep sigh
+                                                                                                    
+                                                                                                    
 ![](https://cdn.mos.cms.futurecdn.net/4SdzPVn25sxXXTftP59HMW.jpg)
 
-./ibm_cloud_pak/pak_extensions/commondb2u-install \
-  --db-type db2wh \
-  --namespace db2u-project \
-  --release-name db2u-release-2 \ 
-  --helm-opt-file ./helm_options
-  
+                                                                                                    
+                                                                                                  
+```                                                                                                    
+./ibm_cloud_pak/pak_extensions/common/db2u-install --db-type db2wh --namespace db2 --release-name max-db2 --helm-opt-file ./helm_options
+```
+                                                                                                    
 ![enter image description here](https://jaysblog.org/wp-content/uploads/2018/09/Fervent-Prayers-29t3cks-1vj911t-1.jpg)
 
 
